@@ -15,7 +15,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form asp-action="AddEdit" method="post">
+                    <form asp-action="AddEditTasks" method="post">
                         
                         <input type="hidden" asp-for="TaskId" />
 
@@ -29,7 +29,7 @@
                             <label asp-for="DueDate" class="form-label"></label>
                             <input asp-for="DueDate" type="date" class="form-control" />
                         </div>
-
+ 
                         <div class="mb-3">
                             <label asp-for="QuadrantId" class="form-label"></label>
                             <select asp-for="QuadrantId" class="form-select">
@@ -50,13 +50,15 @@
                             </select>
                         </div>
 
-                        <div class="form-check mb-3">
-                            <input asp-for="CompletedFlag" class="form-check-input" />
-                            <label asp-for="CompletedFlag" class="form-check-label"></label>
+                        <input type="hidden" name="CompletedFlag" value="0" />
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="CompletedFlag" name="CompletedFlag" value="1"
+                                   @(Model.CompletedFlag == 1 ? "checked" : "") />
+                            <label class="form-check-label" for="CompletedFlag">Completed</label>
                         </div>
 
                         <div class="d-flex justify-content-between">
-                            <a asp-controller="Home" asp-action="Quadrants" class="btn btn-secondary">
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-secondary">
                                 Cancel
                             </a>
                             <button type="submit" class="btn btn-success">

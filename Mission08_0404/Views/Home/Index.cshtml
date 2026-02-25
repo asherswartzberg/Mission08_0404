@@ -86,12 +86,12 @@
                                             <!-- DELETE -->
                                             <form method="post"
                                                   asp-controller="Home"
-                                                  asp-action="TODO_DeleteAction"
+                                                  asp-action="DeleteTask"
                                                   asp-route-id="@task.TaskId">
                                                 @Html.AntiForgeryToken()
                                                 <button type="submit"
                                                         class="btn btn-sm btn-outline-danger"
-                                                        disabled>
+                                                        >
                                                     Delete
                                                 </button>
                                             </form>
@@ -99,12 +99,12 @@
                                             <!-- COMPLETE -->
                                             <form method="post"
                                                   asp-controller="Home"
-                                                  asp-action="TODO_CompleteAction"
+                                                  asp-action="CompleteTask"
                                                   asp-route-id="@task.TaskId">
                                                 @Html.AntiForgeryToken()
                                                 <button type="submit"
                                                         class="btn btn-sm btn-success"
-                                                        disabled>
+                                                        >
                                                     Complete
                                                 </button>
                                             </form>
@@ -139,10 +139,46 @@
                             @foreach (var task in q2)
                             {
                                 <div class="list-group-item">
-                                    <div class="fw-semibold">@task.TaskName</div>
-                                    <div class="small text-muted">
-                                        Due: @task.DueDate.ToString("MMM d, yyyy")
-                                        <span class="ms-2">| Category: @(task.Cat?.CatName ?? $"CatId {task.CatId}")</span>
+                                    <div class="d-flex justify-content-between align-items-start">
+
+                                        <div class="me-3">
+                                            <div class="fw-semibold">@task.TaskName</div>
+
+                                            <div class="small text-muted">
+                                                Due: @task.DueDate.ToString("MMM d, yyyy")
+                                                <span class="ms-2">| Category: @(task.Cat?.CatName ?? $"CatId {task.CatId}")</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex gap-2">
+                                            <a class="btn btn-sm btn-outline-secondary"
+                                               asp-controller="Home"
+                                               asp-action="AddEditTasks"
+                                               asp-route-id="@task.TaskId">
+                                                Edit
+                                            </a>
+
+                                            <form method="post"
+                                                  asp-controller="Home"
+                                                  asp-action="DeleteTask"
+                                                  asp-route-id="@task.TaskId">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+
+                                            <form method="post"
+                                                  asp-controller="Home"
+                                                  asp-action="CompleteTask"
+                                                  asp-route-id="@task.TaskId">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    Complete
+                                                </button>
+                                            </form>
+                                        </div>
+
                                     </div>
                                 </div>
                             }
@@ -172,10 +208,46 @@
                             @foreach (var task in q3)
                             {
                                 <div class="list-group-item">
-                                    <div class="fw-semibold">@task.TaskName</div>
-                                    <div class="small text-muted">
-                                        Due: @task.DueDate.ToString("MMM d, yyyy")
-                                        <span class="ms-2">| Category: @(task.Cat?.CatName ?? $"CatId {task.CatId}")</span>
+                                    <div class="d-flex justify-content-between align-items-start">
+
+                                        <div class="me-3">
+                                            <div class="fw-semibold">@task.TaskName</div>
+
+                                            <div class="small text-muted">
+                                                Due: @task.DueDate.ToString("MMM d, yyyy")
+                                                <span class="ms-2">| Category: @(task.Cat?.CatName ?? $"CatId {task.CatId}")</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex gap-2">
+                                            <a class="btn btn-sm btn-outline-secondary"
+                                               asp-controller="Home"
+                                               asp-action="AddEditTasks"
+                                               asp-route-id="@task.TaskId">
+                                                Edit
+                                            </a>
+
+                                            <form method="post"
+                                                  asp-controller="Home"
+                                                  asp-action="DeleteTask"
+                                                  asp-route-id="@task.TaskId">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+
+                                            <form method="post"
+                                                  asp-controller="Home"
+                                                  asp-action="CompleteTask"
+                                                  asp-route-id="@task.TaskId">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    Complete
+                                                </button>
+                                            </form>
+                                        </div>
+
                                     </div>
                                 </div>
                             }
@@ -204,10 +276,46 @@
                             @foreach (var task in q4)
                             {
                                 <div class="list-group-item">
-                                    <div class="fw-semibold">@task.TaskName</div>
-                                    <div class="small text-muted">
-                                        Due: @task.DueDate.ToString("MMM d, yyyy")
-                                        <span class="ms-2">| Category: @(task.Cat?.CatName ?? $"CatId {task.CatId}")</span>
+                                    <div class="d-flex justify-content-between align-items-start">
+
+                                        <div class="me-3">
+                                            <div class="fw-semibold">@task.TaskName</div>
+
+                                            <div class="small text-muted">
+                                                Due: @task.DueDate.ToString("MMM d, yyyy")
+                                                <span class="ms-2">| Category: @(task.Cat?.CatName ?? $"CatId {task.CatId}")</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex gap-2">
+                                            <a class="btn btn-sm btn-outline-secondary"
+                                               asp-controller="Home"
+                                               asp-action="AddEditTasks"
+                                               asp-route-id="@task.TaskId">
+                                                Edit
+                                            </a>
+
+                                            <form method="post"
+                                                  asp-controller="Home"
+                                                  asp-action="DeleteTask"
+                                                  asp-route-id="@task.TaskId">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+
+                                            <form method="post"
+                                                  asp-controller="Home"
+                                                  asp-action="CompleteTask"
+                                                  asp-route-id="@task.TaskId">
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    Complete
+                                                </button>
+                                            </form>
+                                        </div>
+
                                     </div>
                                 </div>
                             }
