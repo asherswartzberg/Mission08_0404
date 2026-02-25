@@ -1,0 +1,53 @@
+@model IEnumerable<TaskItem>
+@using System.Linq
+
+@{
+    ViewData["Title"] = "Completed Tasks";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Completed Tasks</h1>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Quadrant">Back to Quadrants</a>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    Finished Tasks
+                </div>
+                <div class="card-body">
+                    @if (!Model.Any())
+                    {
+                        <p class="text-muted">No completed tasks yet.</p>
+                    }
+                    else
+                    {
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Task</th>
+                                    <th>Due Date</th>
+                                    <th>Category</th>
+                                    <th>Quadrant</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var task in Model)
+                                {
+                                    <tr>
+                                        <td>@task.TaskName</td>
+                                        <td>@task.DueDate.ToString("MM/dd/yyyy")</td>
+                                        <td>@task.Cat?.CatName</td>
+                                        <td>@task.Quadrant?.QuadName</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

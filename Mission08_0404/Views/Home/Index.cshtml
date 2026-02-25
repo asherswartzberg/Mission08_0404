@@ -1,8 +1,94 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h1 class="display-4">Task Quadrants Dashboard</h1>
+        <p class="lead">Drag and drop tasks into their correct quadrant.</p>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="AddEditTasks">Add New Task</a>
+    </div>
+
+    <div class="row g-4">
+        <!-- Quadrant I -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-danger text-white text-center">
+                    Quadrant I: Important / Urgent
+                </div>
+                <div class="card-body min-vh-25" id="quadrant1">
+                    <div class="list-group">
+                        <div class="list-group-item" draggable="true">Sample Task 1</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quadrant II -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white text-center">
+                    Quadrant II: Important / Not Urgent
+                </div>
+                <div class="card-body min-vh-25" id="quadrant2">
+                    <div class="list-group">
+                        <div class="list-group-item" draggable="true">Sample Task 2</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quadrant III -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-warning text-dark text-center">
+                    Quadrant III: Not Important / Urgent
+                </div>
+                <div class="card-body min-vh-25" id="quadrant3">
+                    <div class="list-group">
+                        <div class="list-group-item" draggable="true">Sample Task 3</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quadrant IV -->
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-secondary text-white text-center">
+                    Quadrant IV: Not Important / Not Urgent
+                </div>
+                <div class="card-body min-vh-25" id="quadrant4">
+                    <div class="list-group">
+                        <div class="list-group-item" draggable="true">Sample Task 4</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<script>
+    const items = document.querySelectorAll('.list-group-item');
+    const quadrants = document.querySelectorAll('.card-body');
+
+    items.forEach(item => {
+        item.addEventListener('dragstart', () => {
+            item.classList.add('dragging');
+        });
+
+        item.addEventListener('dragend', () => {
+            item.classList.remove('dragging');
+        });
+    });
+
+    quadrants.forEach(quadrant => {
+        quadrant.addEventListener('dragover', e => {
+            e.preventDefault();
+            const dragging = document.querySelector('.dragging');
+            if (dragging) {
+                quadrant.querySelector('.list-group').appendChild(dragging);
+            }
+        });
+    });
+</script>

@@ -9,5 +9,5 @@ public partial class Category
 
     public string CatName { get; set; } = null!;
 
-    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+    public virtual ICollection<TaskItem> Tasks { get; set; } = new List<TaskItem>();
 }

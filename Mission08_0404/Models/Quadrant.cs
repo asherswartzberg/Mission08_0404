@@ -11,5 +11,5 @@ public partial class Quadrant
 
     public string? QuadDescription { get; set; }
 
-    public virtual ICollection<Task> Tasks { get; set; } = new List<Task>();
+    public virtual ICollection<TaskItem> Tasks { get; set; } = new List<TaskItem>();
 }

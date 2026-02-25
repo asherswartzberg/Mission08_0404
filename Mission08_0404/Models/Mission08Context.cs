@@ -19,7 +19,7 @@ public partial class Mission08Context : DbContext
 
     public virtual DbSet<Quadrant> Quadrants { get; set; }
 
-    public virtual DbSet<Task> Tasks { get; set; }
+    public virtual DbSet<TaskItem> Tasks { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -47,9 +47,9 @@ public partial class Mission08Context : DbContext
             entity.Property(e => e.QuadId).HasColumnName("QuadID");
         });
 
-        modelBuilder.Entity<Task>(entity =>
+        modelBuilder.Entity<TaskItem>(entity =>
         {
-            entity.ToTable("Task");
+            entity.ToTable("TaskItem");
 
             entity.Property(e => e.TaskId).HasColumnName("TaskID");
             entity.Property(e => e.CatId).HasColumnName("CatID");

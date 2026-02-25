@@ -1,0 +1,76 @@
+@model Mission08_0404.Models.TaskItem
+
+@{
+    ViewData["Title"] = Model.TaskId == 0 ? "Add Task" : "Edit Task";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">
+                        @(Model.TaskId == 0 ? "Add Task" : "Edit Task")
+                    </h4>
+                </div>
+
+                <div class="card-body">
+                    <form asp-action="AddEdit" method="post">
+                        
+                        <input type="hidden" asp-for="TaskId" />
+
+                        <div class="mb-3">
+                            <label asp-for="TaskName" class="form-label"></label>
+                            <input asp-for="TaskName" class="form-control" />
+                            <span asp-validation-for="TaskName" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="DueDate" class="form-label"></label>
+                            <input asp-for="DueDate" type="date" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="QuadrantId" class="form-label"></label>
+                            <select asp-for="QuadrantId" class="form-select">
+                                <option value="">-- Select Quadrant --</option>
+                                <option value="1">Quadrant I</option>
+                                <option value="2">Quadrant II</option>
+                                <option value="3">Quadrant III</option>
+                                <option value="4">Quadrant IV</option>
+                            </select>
+                            <span asp-validation-for="QuadrantId" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="CatId" class="form-label"></label>
+                            <select asp-for="CatId" class="form-select"
+                                    asp-items="ViewBag.Categories">
+                                <option value="">-- Select Category --</option>
+                            </select>
+                        </div>
+
+                        <div class="form-check mb-3">
+                            <input asp-for="CompletedFlag" class="form-check-input" />
+                            <label asp-for="CompletedFlag" class="form-check-label"></label>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a asp-controller="Home" asp-action="Quadrants" class="btn btn-secondary">
+                                Cancel
+                            </a>
+                            <button type="submit" class="btn btn-success">
+                                Save Task
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

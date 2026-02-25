@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Mission08_0404.Models;
 
-public partial class Task
+public class TaskItem
 {
+    [Key]
     public int TaskId { get; set; }
 
     public string TaskName { get; set; } = null!;
