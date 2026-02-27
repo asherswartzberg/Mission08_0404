@@ -8,74 +8,70 @@ namespace Mission08_0404.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly Mission08Context _context;
+        private ITaskRepository _repo;
 
-        public HomeController(Mission08Context context)
+        public HomeController(ITaskRepository repo)
         {
-            _context = context;
+            _repo = repo;
         }
         public IActionResult Index()
         {
-            var tasks = _context.Tasks
-                .Include(t => t.Cat)
-                .Include(t => t.Quadrant)
-                .ToList();
+            var tasks = _repo.GetTasks();
 
             return View(tasks);
         }
         public IActionResult CompletedTasks()
         {
-            var completedTasks = _context.Tasks
-                .Include(t => t.Cat)
-                .Include(t => t.Quadrant)
-                .Where(t => t.CompletedFlag == 1)
-                .ToList();
+            var completedTasks = _repo.GetCompleteTasks();
 
             return View(completedTasks ?? new List<TaskItem>());
         }
         public IActionResult AddEditTasks(int? id)
         {
-            ViewBag.Categories = new SelectList(_context.Categories, "CatId", "CatName");
+            ViewBag.Categories = new SelectList(_repo.Categories, "CatId", "CatName");
+
+            TaskItem task;
 
             if (id == null)
             {
-                var newTask = new TaskItem()
+                task = new TaskItem()
                 {
                     DueDate = DateOnly.FromDateTime(DateTime.Today)
                 };
-
-                return View(newTask);
+            }
+            else
+            {
+                task = _repo.Tasks
+                    .Single(t => t.TaskId == id);
             }
 
-            var task = _context.Tasks.Find(id);
             return View(task);
         }
         
         [HttpPost]
         public IActionResult AddEditTasks(TaskItem task)
         {
-            ViewBag.Categories = new SelectList(_context.Categories, "CatId", "CatName");
+            ViewBag.Categories = new SelectList(_repo.Categories, "CatId", "CatName");
 
             if (task.TaskId == 0)
             {
-                _context.Tasks.Add(task);
+                _repo.AddTask(task);
             }
             else
             {
-                _context.Tasks.Update(task);
+                _repo.UpdateTask(task);
             }
 
-            _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
         [HttpPost]
         public IActionResult CompleteTask(int id)
         {
-            var task = _context.Tasks
+            var task = _repo.Tasks
                 .Single(t => t.TaskId == id);
             task.CompletedFlag = 1;
-            _context.SaveChanges();
+            _repo.UpdateTask(task);
 
             return RedirectToAction("Index");
         }
@@ -83,7 +79,7 @@ namespace Mission08_0404.Controllers
         [HttpGet]
         public IActionResult DeleteTask(int id)
         {
-            var task = _context.Tasks
+            var task = _repo.Tasks
                 .Single(t => t.TaskId == id);
 
             return View(task);
@@ -91,8 +87,7 @@ namespace Mission08_0404.Controllers
         [HttpPost]
         public IActionResult DeleteTask(TaskItem task)
         {
-            _context.Tasks.Remove(task);
-            _context.SaveChanges();
+            _repo.DeleteTask(task);
 
             return RedirectToAction("Index");
         }
